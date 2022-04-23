@@ -15,6 +15,7 @@
     "build": "electron-builder build"
   },
   "devDependencies": {
+    "electron-builder": "^23.0.7",
     "@types/node": "^17.0.25",
     "asar": "^3.1.0",
     "electron": "^16.0.6"
