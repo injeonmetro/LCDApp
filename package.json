@@ -4,7 +4,7 @@
   "description": "빠르고 편리하게 LCD를 에뮬레이션 할 수 있는 LCDApp입니다.",
   "keywords": [],
   "main": "./main.js",
-  "version": "2.0",
+  "version": "2.0.1",
   "author": "Injeon Transportation Corporation",
   "repository": {
     "type": "git",
