@@ -47,7 +47,6 @@
     }
   },
   "dependencies": {
-    "electron-builder": "^23.0.7",
     "electron-log": "^4.4.6",
     "electron-updater": "^5.0.1",
     "update-electron-app": "^2.0.1"
