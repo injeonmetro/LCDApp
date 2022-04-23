@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link href="../../resources/tailwind.css" rel="stylesheet">
+    <script src="../../resources/alpine.js" defer></script>
+    <link href="./styles.css" rel="stylesheet">
+    <script src="./app.js"></script>
+    <title>리미트 무궁화 LCD
+    </title>
+  </head>
+  <body>
+  <noscript>
+      <div style="display:block">JavaScript 활성화 없이는 LCDApp을 실행할 수 없습니다.</div>
+      <style>
+          *{
+              display:none;
+          }
+      </style>
+  </noscript>
+  <div  x-data="{ open: true }"  x-init="" id="notibox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed bg-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between">
+    <div class="w-full">안내방송 설정 <input class="p-4 text-gray-500 rounded-xl resize-none border" id="stnname" placeholder="역명" required></input> </div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('notibox').style.display = 'none';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">닫기</button>
+      <button onclick="document.getElementById('notibox').style.display = 'none';document.getElementById('vidbox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">영상교체</button>
+        <button onclick="runApp(document.getElementById('stnname').value, 'y');document.getElementById('notibox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">종착</button>
+          <button onclick="runApp(document.getElementById('stnname').value, 'n');document.getElementById('notibox').style.display = 'none';" @click="open = false" class="ml-2 py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">정차</button>
+          <button onclick="document.getElementById('notibox').style.display = 'none';document.getElementById('srtbox').style.display = '';" @click="open = false" class="ml-2 py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">출발</button>
+      
+      </div>
+  </div>
+  <div    x-init="" id="srtbox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed bg-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between" style="display:none;">
+    <div class="w-full">출발 안내방송 <input class="p-4 text-gray-500 rounded-xl resize-none border" id="srtname" placeholder="시작역명" required></input>▶▶<input class="p-4 text-gray-500 rounded-xl resize-none border" id="srtname2" placeholder="도착역명" required></input> </div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('srtbox').style.display = 'none';document.getElementById('notibox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">뒤로가기</button>
+        <button onclick="runSrtApp(document.getElementById('srtname').value, document.getElementById('srtname2').value);document.getElementById('srtbox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">재생</button>
+        <button onclick="document.getElementById('srtbox').style.display = 'none';document.getElementById('newsVideo').style.display = 'none';document.getElementById('accidentPrevention').currentTime = 0;document.getElementById('accidentPrevention').style.display = '';document.getElementById('accidentPrevention').play();hideAccidentPrevention();" @click="open = false" class="py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">사고예방</button>
+      
+      </div>
+  </div>
+  <div    x-init="" id="vidbox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed bg-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between" style="display:none;">
+    <div class="w-full">재생목록 ID (youtube.com/playlist?list=ex -> ex) <input class="p-4 text-gray-500 rounded-xl resize-none border" id="viduri" placeholder="재생목록ID" required></input></div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('vidbox').style.display = 'none';document.getElementById('notibox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">뒤로가기</button>
+      <button onclick="document.getElementById('vidbox').style.display = 'none';document.getElementById('vidbox2').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">영상 재생</button>
+      <button onclick="document.getElementById('newsVideo').src = 'https:\/\/www.youtube.com\/embed\/?list='+document.getElementById('viduri').value +'&index=1&loop=1&autoplay=1&mute=1&controls=0';document.getElementById('vidbox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">재생</button>
+
+      </div>
+  </div>
+  <div    x-init="" id="vidbox2" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed bg-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between" style="display:none;">
+    <div class="w-full">영상 ID (youtube.com/watch?v=ex -> ex) <input class="p-4 text-gray-500 rounded-xl resize-none border" id="viduri2" placeholder="영상ID" required></input></div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('vidbox2').style.display = 'none';document.getElementById('vidbox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">뒤로가기</button>
+        <button onclick="document.getElementById('newsVideo').src = 'https:\/\/www.youtube.com\/embed\/'+document.getElementById('viduri2').value +'loop=1&autoplay=1&mute=1&controls=0';document.getElementById('vidbox2').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">재생</button>
+
+      </div>
+  </div>
+
+
+
+
+
+<div class="text-white body-font fixed top-0 bg-gradient-to-b from-black w-full z-50">
+        <div class=" px-16 flex flex-wrap p-5 flex-col md:flex-row items-center">
+<div class="p-4 md:px-6 md:py-8 relative">
+    <div class="sm:flex sm:items-center sm:justify-between">
+           <a onclick='document.getElementById("notibox").style.display = "";'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+         </a>
+         <a href='javascript:window.close();'>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+       </a>
+    </div>
+</div>
+        </div>
+</div>  
+<div class="items-center justify-center flex flex-col mt-32">
+    <div class="items-center justify-center w-full p-8 flex flex-col">
+        <div class="text-white items-center justify-center w-full p-5 h-auto flex flex-col col-span-12">
+        <!--로딩용 로고-->
+        <div id="loadingCont">
+        </div>
+        <!--안내-->
+        <div id="StnNoticeCont">
+        <h2 class="text-8xl text-center font-bold mt-2 mb-20 stnnotice" id="StnNoticeTxt"></h2>
+        </div>
+            </div>
+    </div>
+    
+<div class="absolute w-full bottom-0 right-0">
+</div>
+</div>
+
+                <div class="absolute w-full h-full bottom-0 bg-gradient-to-t from-black" style="z-index:-30;">
+                 
+                    <video class="w-full h-full  object-cover" src="./pororo_railsafety.mp4" id="accidentPrevention" style="display:none;" ></video>
+                    <div class="w-full h-full  object-cover" style="background-color:#0000ff;display:none;" id="stnBG"></div>
+                     <iframe  class="w-full h-full  object-cover"  src="https://www.youtube.com/embed/?list=PLbByFhGChrxjwo6PKjE-Df9wQZCk3OqrZ&index=1&autoplay=1&mute=1&controls=0" id="newsVideo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+               
+                    </div>                     
+                    
+                </div>
+  </body>
+</html>

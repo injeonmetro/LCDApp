@@ -1,0 +1,46 @@
+/* 폰트 지정 */
+@font-face {
+    font-family: 'NanumSquare';
+    font-weight: 400;
+    src: url(./NanumSquareR.eot);
+    src: local('☺'),
+         url(./NanumSquareR.eot?#iefix) format('embedded-opentype'),
+         url(./NanumSquareR.woff) format('woff'),
+         url(./NanumSquareR.ttf) format('truetype');
+   }
+   @font-face {
+    font-family: 'NanumSquare';
+    font-weight: 700;
+    src: url(./NanumSquareB.eot);
+    src: local('☺'),
+         url(./NanumSquareB.eot?#iefix) format('embedded-opentype'),
+         url(./NanumSquareB.woff) format('woff'),
+         url(./NanumSquareB.ttf) format('truetype');
+   }
+   @font-face {
+    font-family: 'NanumSquare';
+    font-weight: 800;
+    src: url(./NanumSquareEB.eot);
+    src: local('☺'),
+         url(./NanumSquareEB.eot?#iefix) format('embedded-opentype'),
+         url(./NanumSquareEB.woff) format('woff'),
+         url(./NanumSquareEB.ttf) format('truetype');
+   }
+   @font-face {
+    font-family: 'NanumSquare';
+    font-weight: 300;
+    src: url(./NanumSquareL.eot);
+    src: local('☺'),
+         url(./NanumSquareL.eot?#iefix) format('embedded-opentype'),
+         url(./NanumSquareL.woff) format('woff'),
+         url(./NanumSquareL.ttf) format('truetype');
+   }
+
+body		{ font-family: 나눔스퀘어, 'NanumSquare', sans-serif!important; }
+.font-semibold	{ font-weight: 700 }
+.font-bold		{ font-weight: 800 }
+.font-light		{ font-weight: 300 }
+                .stnnotice {
+                  -webkit-text-stroke: 1px black;
+font-family: 'HY헤드라인M','휴먼둥근헤드라인', 나눔스퀘어, 'NanumSquare';
+}

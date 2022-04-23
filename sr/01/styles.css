@@ -1,0 +1,33 @@
+/* 폰트 지정 */
+@font-face {
+    font-family: 'NotoSansKR';
+    font-weight: 400;
+    src: url(./NotoSansKR-Medium.otf);
+    src: local('☺'),
+         url(./NotoSansKR-Medium.otf) format('opentype'),
+         url(./NotoSansKR-Medium.woff) format('woff');
+   }
+   @font-face {
+      font-family: 'NotoSansKR';
+      font-weight: 700;
+      src: url(./NotoSansKR-Bold.otf);
+      src: local('☺'),
+           url(./NotoSansKR-Bold.otf) format('opentype'),
+           url(./NotoSansKR-Bold.woff) format('woff');
+     }
+     @font-face {
+      font-family: 'NotoSansKR';
+      font-weight: 800;
+      src: url(./NotoSansKR-Black.otf);
+      src: local('☺'),
+           url(./NotoSansKR-Black.otf) format('opentype'),
+           url(./NotoSansKR-Black.woff) format('woff');
+     }
+body		{ font-family: 나눔스퀘어, 'NanumSquare', sans-serif!important; }
+.font-semibold	{ font-weight: 700 }
+.font-bold		{ font-weight: 800 }
+.font-light		{ font-weight: 300 }
+                .stnnotice {
+-webkit-text-stroke: 1px black;
+font-family: 'NotoSansKR', 나눔스퀘어, 'NanumSquare';
+}

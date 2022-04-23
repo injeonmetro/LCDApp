@@ -1,0 +1,53 @@
+{
+  "name": "itclcdapp",
+  "productName": "LCDApp",
+  "description": "빠르고 편리하게 LCD를 에뮬레이션 할 수 있는 LCDApp입니다.",
+  "keywords": [],
+  "main": "./main.js",
+  "version": "1.1.1",
+  "author": "Injeon Transportation Corporation",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/injeonmetro/LCDApp.git"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build"
+  },
+  "devDependencies": {
+    "asar": "^3.1.0",
+    "electron": "^16.0.6"
+  },
+  "build": {
+    "asar": true,
+    "appId": "com.injeon.itclcdapp",
+    "productName": "LCDApp",
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "appimage",
+          "arch": [
+            "armv7l",
+            "arm64"
+          ]
+        }
+      ]
+    }
+  },
+  "dependencies": {
+    "electron-log": "^4.4.6",
+    "electron-updater": "^5.0.1",
+    "update-electron-app": "^2.0.1"
+  }
+}

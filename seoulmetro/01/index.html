@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link href="../../resources/tailwind.css" rel="stylesheet">
+    <script src="../../resources/alpine.js" defer></script>
+    <link href="./styles.css" rel="stylesheet">
+    <script src="./app.js"></script>
+    <title>서울교통공사 LCD
+    </title>
+  </head>
+  <body>
+  <noscript>
+      <div style="display:block">JavaScript 활성화 없이는 LCDApp을 실행할 수 없습니다.</div>
+      <style>
+          *{
+              display:none;
+          }
+      </style>
+  </noscript>
+  <div  x-data="{ open: true }"  x-init="" id="notibox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed bg-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between">
+    <div class="w-full">안내방송 설정 
+      
+      <select name="stnname" id="stnname" class="p-4 text-gray-500 rounded-xl resize-none border">
+        <option value="750">온수</option>
+        <option value="751">까치울</option>
+        <option value="752">부천종합운동장</option>
+        <option value="753">춘의</option>
+        <option value="754">신중동</option>
+        <option value="755">부천시청</option>
+        <option value="756">상동</option>
+        <option value="757">삼산체육관</option>
+        <option value="758">굴포천</option>
+        <option value="759">부평구청</option>
+      </select></div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('notibox').style.display = 'none';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">닫기</button>
+        <button onclick="runApp(document.getElementById('stnname').value, 'y');document.getElementById('notibox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white px-2">재생</button>
+      </div>
+  </div>
+ 
+
+
+
+
+
+<div class="text-white body-font fixed top-0 bg-gradient-to-b from-black w-full z-50">
+        <div class=" px-12 flex flex-wrap p-5 flex-col md:flex-row items-center">
+<div class="p-2 md:px-4 md:py-8 relative">
+    <div class="sm:flex sm:items-center sm:justify-between">
+      
+           <a onclick='document.getElementById("notibox").style.display = "";'>
+            <img src="logo.svg" class="h-12">
+         </a>
+         <a href='javascript:window.close();'>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+       </a>
+    </div>
+</div>
+        </div>
+</div>  
+<div class="items-center justify-center flex flex-col mt-32">
+    <div class="items-center justify-center w-full p-8 flex flex-col">
+        <div class="text-white items-center justify-center w-full p-5 h-auto flex flex-col col-span-12">
+        <!--로딩용 로고-->
+        <div id="loadingCont">
+        </div>
+        <!--안내-->
+        <div id="StnNoticeCont">
+        <h2 class="text-7xl text-center font-bold mt-2 mb-20 stnnotice" id="StnNoticeTxt"><img src="logo_static.svg" class="h-96 mx-auto"></h2>
+        </div>
+            </div>
+    </div>
+    
+<div class="absolute w-full bottom-0 right-0">
+</div>
+</div>
+                <div class="absolute w-full h-full bottom-0 bg-gradient-to-t from-black" style="z-index:-30;">
+                   <img  class="w-full h-full  object-cover" src="bg.png">
+                       </div>                     
+                    
+                </div>
+  </body>
+</html>
