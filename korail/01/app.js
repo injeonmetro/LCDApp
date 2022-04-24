@@ -23,6 +23,34 @@ function playAudio(audio){
       audio.onended = res
     })
   }
+  $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+
+  if ($.urlParam('ip') == null){
+    var useled = 0;
+    var ip = "";
+  }
+  else{
+var useled = 1;
+var ip = $.urlParam('ip');
+  }
+function sendled(text){
+  if (useled == 1){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+    }
+  };
+  xhttp.open("GET", "http://"+ip+":8000/pixel/"+encodeURIComponent(text), true);
+  xhttp.send();
+  }
+}
 
 function runApp(stn, end){
 var stnval = stn;
@@ -34,17 +62,22 @@ if (end == "y"){
     audio.play();
       setTimeout(function() {
         async function notify(){
+           sendled('종착역 '+stnval+'역');
             var audio = new Audio('./info/end_01.mp3')
             await playAudio(audio)
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=ko-kr&speed=0.5')
             await playAudio(audio)       
             //https://www.google.com/speech-api/v1/synthesize?text=ssss
+            sendled('함께해주셔서 감사합니다.');
             var audio = new Audio('./info/end_02.mp3')
             await playAudio(audio)
+            sendled('LAST STOP: '+stnval);
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=en_us&speed=0.5')
             await playAudio(audio)      
+            
             var audio = new Audio('./info/end_03.mp3')
             await playAudio(audio)
+            sendled(stnval);
           }
           notify();
     
@@ -56,17 +89,21 @@ if (end == "y"){
     audio.play();
     setTimeout(function() {
         async function notify(){
+          sendled('이번역 '+stnval+'역');
             var audio = new Audio('./info/stop_01.mp3')
             await playAudio(audio)
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=ko-kr&speed=0.5')
-            await playAudio(audio)       
+            await playAudio(audio)  
+            sendled('소지품 확인');     
             //https://www.google.com/speech-api/v1/synthesize?text=ssss
             var audio = new Audio('./info/stop_02.mp3')
             await playAudio(audio)
+            sendled('THIS STOP: '+stnval);
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=en_us&speed=0.5')
             await playAudio(audio)      
             var audio = new Audio('./info/stop_03.mp3')
             await playAudio(audio)
+            sendled(stnval);
           }
           notify();
     

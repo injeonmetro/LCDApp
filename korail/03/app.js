@@ -23,7 +23,33 @@ function playAudio(audio){
       audio.onended = res
     })
   }
-
+  $.urlParam = function(name){
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results==null) {
+       return null;
+    }
+    return decodeURI(results[1]) || 0;
+}
+  if ($.urlParam('ip') == null){
+    var useled = 0;
+    var ip = "";
+  }
+  else{
+var useled = 1;
+var ip = $.urlParam('ip');
+  }
+function sendled(text){
+  if (useled == 1){
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(this.responseText);
+    }
+  };
+  xhttp.open("GET", "http://"+ip+":8000/pixel/"+encodeURIComponent(text), true);
+  xhttp.send();
+  }
+}
 function runApp(stn, end){
     document.getElementById('stnBG').style.display = '';
     document.getElementById('newsVideo').style.display = '';
@@ -36,23 +62,32 @@ var audio = new Audio('./ktx_end.mp3');
 audio.play();
 setTimeout(function() {
     async function notify(){
+       sendled('종 착');
         var audio = new Audio('./info/end_01.mp3')
         await playAudio(audio)
+        sendled(stnval);
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=ko-kr&speed=0.5')
         await playAudio(audio)       
         //https://www.google.com/speech-api/v1/synthesize?text=ssss
+        sendled('오늘도 빠르고 편한 KTX를 이용해주셔서 감사합니다.');
         var audio = new Audio('./info/end_02.mp3')
         await playAudio(audio)
+        sendled('LAST');
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=en-us&speed=0.5')
-        await playAudio(audio)      
+        await playAudio(audio)   
+        sendled(stnval);   
         var audio = new Audio('./info/end_03.mp3')
         await playAudio(audio)
+        sendled('Thank you for using fast and convenient KTX.');
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=zh-cn&speed=0.5')
         await playAudio(audio)      
+        sendled('종 착');
         var audio = new Audio('./info/end_04.mp3')
         await playAudio(audio)
+        sendled('LAST');
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=ja-jp&speed=0.5')
         await playAudio(audio)  
+        sendled(stnval);
         var audio = new Audio('./info/end_05.mp3')
         await playAudio(audio)
       }
@@ -66,21 +101,28 @@ var audio = new Audio('./ktx_arrive.mp3');
 audio.play();
 setTimeout(function() {
     async function notify(){
+      sendled('이번역은');
         var audio = new Audio('./info/stop_01.mp3')
         await playAudio(audio)
+        sendled(stnval);
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=ko-kr&speed=0.5')
         await playAudio(audio)       
         //https://www.google.com/speech-api/v1/synthesize?text=ssss
+        sendled('역입니다');
         var audio = new Audio('./info/stop_02.mp3')
         await playAudio(audio)
+        sendled('STOP');
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=en-us&speed=0.5')
         await playAudio(audio)      
+        sendled(stnval);
         var audio = new Audio('./info/stop_03.mp3')
         await playAudio(audio)
+        sendled('두고 내리는 물건이 없는지 확인');
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=zh-cn&speed=0.5')
         await playAudio(audio)      
         var audio = new Audio('./info/stop_04.mp3')
         await playAudio(audio)
+        sendled(stnval);
         var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent(stnval)+'&lang=ja-jp&speed=0.5')
         await playAudio(audio)  
         var audio = new Audio('./info/stop_05.mp3')
@@ -133,14 +175,20 @@ function runSrtApp(stn, end){
       audio.play();
       setTimeout(function() {
         async function notify(){
+          sendled(endval+'행');
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent('고객 여러분 안녕하십니까? 우리 열차는 '+endval+'역까지 가는 고속 열차입니다. 저희 승무원은 고객께서 편안히 여행할 수 있도록 정성을 다하겠습니다.')+'&lang=ko-kr&speed=0.5')
-            await playAudio(audio)       
+            await playAudio(audio)     
+            sendled('KTX');
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent('Welcome aboard the KTX bound for '+endval+'. We will do our best to make your journey as comfortable as possible.')+'&lang=en-us&speed=0.5')
-            await playAudio(audio)      
+            await playAudio(audio)  
+              
+            sendled(endval);  
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent('各位旅客，大家好。本次列车是开往 '+endval+'。 站的高速列车。我们将竭诚为您服务，祝您一路平安，旅途愉快。')+'&lang=zh-cn&speed=0.5')
             await playAudio(audio)      
             var audio = new Audio('https://www.google.com/speech-api/v1/synthesize?text='+encodeURIComponent('ご乗車ありがとうございます。この列車は '+endval+'。 行きの高速鉄道です。私たち乗務員はお客様に便利で快適なご旅行を提供するために努めております。')+'&lang=ja-jp&speed=0.5')
             await playAudio(audio)  
+
+          
           }
           notify();
     

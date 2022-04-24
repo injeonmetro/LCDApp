@@ -39,10 +39,10 @@
         </div>
         <!-- Content -->
         <div class="accordion-content px-5 pt-0 overflow-hidden max-h-0">
-            <a href="javascript:window.open('./korail/01/index.html', '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">무궁화/새마을</button></a>
-        <a href="javascript:window.open('./korail/02/index.html', '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">무궁화리미트</button></a>
+            <a href="javascript:window.open('./korail/01/index.html'+expm, '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">무궁화/새마을</button></a>
+        <a href="javascript:window.open('./korail/02/index.html'+expm, '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">무궁화리미트</button></a>
 
-      <a href="javascript:window.open('./korail/03/index.html', '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"> <button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2 flex"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+      <a href="javascript:window.open('./korail/03/index.html'+expm, '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"> <button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2 flex"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
   <path fill-rule="evenodd" d="M17.778 8.222c-4.296-4.296-11.26-4.296-15.556 0A1 1 0 01.808 6.808c5.076-5.077 13.308-5.077 18.384 0a1 1 0 01-1.414 1.414zM14.95 11.05a7 7 0 00-9.9 0 1 1 0 01-1.414-1.414 9 9 0 0112.728 0 1 1 0 01-1.414 1.414zM12.12 13.88a3 3 0 00-4.242 0 1 1 0 01-1.415-1.415 5 5 0 017.072 0 1 1 0 01-1.415 1.415zM9 16a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
 </svg>KTX</button></a>
         
@@ -58,7 +58,7 @@
         </div>
         <!-- Content -->
         <div class="accordion-content px-5 pt-0 overflow-hidden max-h-0">
-            <a href="javascript:window.open('./seoulmetro/01/index.html', '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">SR001 전동차 (7호선)</button></a>
+            <a href="javascript:window.open('./seoulmetro/01/index.html'+expm, '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">SR001 전동차 (7호선)</button></a>
         </div>
         </div>
 
@@ -71,7 +71,7 @@
         </div>
         <!-- Content -->
         <div class="accordion-content px-5 pt-0 overflow-hidden max-h-0">
-            <a href="javascript:window.open('./sr/01/index.html', '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">SRT</button></a>
+            <a href="javascript:window.open('./sr/01/index.html'+expm, '_blank', 'top=0,left=0,width=1280,height=720,frame=false,nodeIntegration=no')"><button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">SRT</button></a>
 </div>
         </div>
 
@@ -106,12 +106,11 @@
         <!-- Content -->
         <div class="accordion-content px-5 pt-0 overflow-hidden max-h-0 block">
             <div>
-      <input type="checkbox" id="ledconn" name="ledconn">
       <label for="ledconn">LED 연동 - <a href="javascript:window.open('https://github.com/injeonmetro/LEDModule');" class="text-blue-500">자세히 알아보기</a></label>
-    <br>연동을 위한 IP주소: <input required pattern="^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$" class="border rounded border-black"></input>
+    <br>연동을 위한 IP주소: <input required pattern="^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)(\.(?!$)|$)){4}$" id="ipaddr" class="border rounded border-black"></input>
   
   <br>
-     <button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2">저장</button>
+     <button class="rounded-full bg-indigo-600 text-white font-medium font-lg px-2" onclick="useled=1; ip=document.getElementById('ipaddr').value; expm='?ip='+encodeURIComponent(ip)">저장</button>
         
     </div>
         </div>
@@ -144,6 +143,10 @@
 </style>
 
 <script>
+    var useled = 0;
+    var ipaddr = "";
+    var expm = "";
+
     const accordionHeader = document.querySelectorAll(".accordion-header");
     accordionHeader.forEach((header) => {
     header.addEventListener("click", function () {
