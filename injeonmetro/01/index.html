@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="../../resources/tailwind.css" rel="stylesheet">
+    <script src="../../resources/alpine.js" defer></script>
+    <script src="../../resources/jquery.js"></script>
+    <script src="../../resources/jquery.i18n.js"></script>
+    <script src="../../resources/jquery.i18n.messagestore.js"></script>
+    <script src="../../resources/jquery.i18n.fallbacks.js"></script>
+    <script src="../../resources/jquery.i18n.parser.js"></script>
+    <script src="../../resources/jquery.i18n.emitter.js"></script>
+    <script src="../../resources/jquery.i18n.language.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-rss/3.3.0/jquery.rss.min.js"></script>
+    <link href="./styles.css" rel="stylesheet">
+    <script src="./app.js"></script>
+
+
+    <title>INJEONMETRO PLAYER 1
+    </title>
+  </head>
+  <body>
+  <noscript>
+      <div style="display:block">JavaScript 활성화 없이는 LCDApp을 실행할 수 없습니다.</div>
+      <style>
+          *{
+              display:none;
+          }
+      </style>
+  </noscript>
+
+  <div  x-data="{ open: false }"  x-init="" id="notibox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+        style="display:none;z-index:2;"
+         class="max-w-screen-lg mx-auto fixed text-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between">
+    <div class="w-full">수동안내방송 
+      <select name="stnname" id="stnname" class="p-4 text-gray-500 rounded-xl resize-none border">
+        <option value="인천공항1터미널">인천공항1터미널</option>
+        <option value="인천">인천</option>
+        <option value="부평">부평</option>
+        <option value="서울">서울역</option>
+        <option value="사당">사당</option>
+        <option value="수원">수원역</option>
+        <option value="평택지제">평택지제</option>
+        <option value="천안아산">천안아산</option>
+        <option value="정부세종청사">정부세종청사</option>
+        <option value="대전조차장">대전조차장</option>
+        <option value="용문">용문</option>
+        <option value="서대전">서대전</option>
+        <option value="대전">대전역</option>
+        <option value="판암">판암</option>
+<option value="부산">부산</option>
+      </select>
+     </div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('notibox').style.display = 'none';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">닫기</button>
+      
+      
+      <button onclick="document.getElementById('notibox').style.display = 'none';document.getElementById('vidbox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">영상교체</button>
+       
+          <button onclick="runApp(document.getElementById('stnname').value, 'n');document.getElementById('notibox').style.display = 'none';" @click="open = false" class="ml-2 py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">정차</button>
+          <button onclick="document.getElementById('notibox').style.display = 'none';document.getElementById('srtbox').style.display = '';" @click="open = false" class="ml-2 py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">행선지 설정</button>
+          <button onclick="javascript:window.close();" @click="open = false" class="ml-2 py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">종료</button>
+      </div>
+  </div>
+  <div    x-init="" id="srtbox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed text-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between" style="display:none;z-index:2;">
+    <div class="w-full">
+      <select name="srtname" id="srtname" class="p-4 text-gray-500 rounded-xl resize-none border">
+        <option value="인천공항1터미널">인천공항1터미널</option>
+        <option value="인천">인천</option>
+        <option value="부평">부평</option>
+        <option value="서울">서울역</option>
+        <option value="사당">사당</option>
+        <option value="수원">수원역</option>
+        <option value="평택지제">평택지제</option>
+        <option value="천안아산">천안아산</option>
+        <option value="정부세종청사">정부세종청사</option>
+        <option value="대전조차장">대전조차장</option>
+        <option value="용문">용문</option>
+        <option value="서대전">서대전</option>
+        <option value="대전">대전역</option>
+        <option value="판암">판암</option>
+<option value="부산">부산</option>
+        
+      </select>발       <select name="srtname2" id="srtname2" class="p-4 text-gray-500 rounded-xl resize-none border">
+        <option value="인천공항1터미널">인천공항1터미널</option>
+        <option value="인천">인천</option>
+        <option value="부평">부평</option>
+        <option value="서울">서울역</option>
+        <option value="사당">사당</option>
+        <option value="수원">수원역</option>
+        <option value="평택지제">평택지제</option>
+        <option value="천안아산">천안아산</option>
+        <option value="정부세종청사">정부세종청사</option>
+        <option value="대전조차장">대전조차장</option>
+        <option value="용문">용문</option>
+        <option value="서대전">서대전</option>
+        <option value="대전">대전역</option>
+        <option value="판암">판암</option>
+<option value="부산">부산</option>
+      </select>행 <input class="p-4 text-gray-500 rounded-xl resize-none border" id="trainno" placeholder="열차번호" required></input> 열차 </div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('srtbox').style.display = 'none';document.getElementById('notibox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">뒤로가기</button>
+        <button onclick="runSrtApp(document.getElementById('srtname').value, document.getElementById('srtname2').value, document.getElementById('trainno').value);document.getElementById('srtbox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">출발</button>
+        <button onclick="runApp(document.getElementById('srtname2').value, 'y');document.getElementById('notibox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">종착</button>
+        <button onclick="autoEntry(document.getElementById('trainno').value);" class="py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">자동입력</button>
+      
+      </div>
+  </div>
+  <div    x-init="" id="vidbox" x-show="open"   
+        x-transition:enter-start="opacity-0 scale-90" 
+        x-transition:enter="transition duration-200 transform ease"
+        x-transition:leave="transition duration-200 transform ease"
+        x-transition:leave-end="opacity-0 scale-90"
+         class="max-w-screen-lg mx-auto fixed text-white inset-x-5 p-5 bottom-40 rounded-lg drop-shadow-2xl flex gap-4 flex-wrap md:flex-nowrap text-center md:text-left items-center justify-center md:justify-between" style="display:none;z-index:2;">
+    <div class="w-full">재생목록 ID (youtube.com/playlist?list=ex -> ex) <input class="p-4 text-gray-500 rounded-xl resize-none border" id="viduri" placeholder="재생목록ID" required></input></div>
+    <div class="flex gap-2 items-center flex-shrink-0">
+      <button onclick="document.getElementById('vidbox').style.display = 'none';document.getElementById('notibox').style.display = '';" @click="open = false" class="text-indigo-600 focus:outline-none hover:underline">뒤로가기</button>
+      <button onclick="document.getElementById('newsVideo').src = 'https:\/\/www.youtube.com\/embed\/?list='+document.getElementById('viduri').value +'&index=1&loop=1&autoplay=1&mute=1&controls=0';document.getElementById('vidbox').style.display = 'none';" @click="open = false" class="py-3 text-lg bg-gradient-to-b from-purple-500 to-indigo-600 rounded-xl text-white px-2">재생</button>
+
+      </div>
+  </div>
+
+
+
+
+<div class="text-white body-font fixed top-0  w-full z-50">
+        <div class=" px-16 flex flex-wrap p-5 flex-col md:flex-row items-center">
+<div class="p-4 md:px-6 md:py-8 relative">
+    <div class="sm:flex sm:items-center sm:justify-between">
+           <a onclick='document.getElementById("notibox").style.display = "";'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+         </a>
+    </div>
+    <span class="text-5xl font-bold stnnotice" id="traininfo" style="-webkit-text-stroke: 1px black;">00행 0000열차</span>
+    <span class="text-5xl font-bold stnnotice" id="time" style="-webkit-text-stroke: 1px black;"><br>지금시간</span>
+    <script>
+      function startTime() {
+  const today = new Date();
+  let h = today.getHours();
+  let m = today.getMinutes();
+  m = checkTime(m);
+  document.getElementById('time').innerHTML =  "<br>지금시간 "+ h + ":" + m;
+  setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+startTime();
+    </script>
+</div>
+        </div>
+</div>  
+<div class="items-center justify-center flex flex-col" style="-webkit-box-flex: 1;  -ms-flex: 1 1 auto; flex: 1 1 auto; z-index:-6;">
+    <div class="items-center justify-center w-full p-8 flex flex-col">
+        <div class="text-gray-800 items-center justify-center w-full p-5 h-auto flex flex-col col-span-12" style="margin: auto;
+        left: 0;
+        right: 0;
+        top: 0px;
+        bottom: 0;
+        position: fixed;
+        z-index:-5;">
+        <!--로딩용 로고-->
+        <div id="loadingCont">
+        </div>
+        <!--안내-->
+        <div id="StnNoticeCont">
+        <h2 class="text-9xl text-center font-bold mt-2 mb-20 stnnotice" id="StnNoticeTxt"></h2>
+        </div>
+            </div>
+    </div>
+    
+<div class="absolute w-full bottom-0 right-0">
+	<div id="container" class="w-full text-white text-center font-bold text-7xl stnnotice py-3" style="background-color:blue!important;z-index:-7;">
+    <ul id="rolling">
+      <li>뉴스는 TJB 대전방송과, OBS 경인방송에서 제공</li>
+      <li>오늘도 인전교통공사를 이용해주셔서 감사합니다.</li>
+      <li>승객 여러분께 열차에서의 금지행위를 안내해 드립니다.</li>
+      <li>출입금지장소, 운전실 등에 출입하는 행위,</li>
+      <li>열차장치, 또는 기구 등을 조작하는 행위,</li>
+      <li>열차 밖으로 물건을 던지는 행위,</li>
+      <li>흡연하는 행위,</li>
+      <li>성적인 수치심을 일으키는 행위,</li>
+      <li>술, 약물 복용 후 위해를 주는 행위,</li>
+      <li>동식물과 안전조치 없이 탑승하는 행위,</li>
+      <li>법정감염병자가 열차에 타는 행위,</li>
+      <li>물품 판매 등을 하여 불편을 끼치는 행위를 하면</li>
+      <li>철도안전법에 따라 처벌을 받을 수 있습니다.</li>
+      <li>국민 모두 쾌적한 열차 이용을 위해 협조 바라며,</li>
+      <li>자세한 사항은 역사 안내 게시판 포스터를</li>
+      <li>참고해 주시기 바랍니다. 감사합니다.</li>
+    </ul>
+  </div>
+  
+</div>
+</div>
+<script>
+        jQuery(function($) {
+        $("#rolling").rss("https://www.youtube.com/feeds/videos.xml?channel_id=UCfyY-4xoQHDlRvCIXPhlubQ",{
+          layoutTemplate: '{entries}',
+          entryTemplate: "<li>{title}</li>",
+          limit: 50,
+        });
+        $("#rolling").rss("https://www.youtube.com/feeds/videos.xml?channel_id=UComhAmtkBwTPF_PvwN8Gc6w",{
+          layoutTemplate: '{entries}',
+          entryTemplate: "<li>{title}</li>",
+          limit: 50,
+        });
+      });
+
+
+ 
+ window.setInterval( function () {
+  
+  document.getElementById("rolling").style.transitionDuration = "400ms";
+  document.getElementById("rolling").style.marginTop = "-2em";
+  
+   window.setTimeout( function () {
+                   
+    document.getElementById("rolling").removeAttribute("style");         
+    document.getElementById("rolling").appendChild(document.getElementById("rolling").firstElementChild);
+         
+   }, 400);
+ }, 5000);
+</script>
+                <div class="absolute w-full h-full bottom-0 bg-gradient-to-t from-black" style="z-index:-30;">
+                 
+                    <video class="w-full h-full  object-cover" src="./safetravel02.mp4" id="accidentPrevention" style="display:none;" ></video>
+                    <div class="w-full h-full  object-cover" style="background-image: url('noticeBG.png');background-position: center;background-repeat: no-repeat;background-size: cover;display:none;" id="departBG"></div>
+                    <div class="w-full h-full  object-cover" style="background-image: url('../../resources/splash_bg.png');background-position: center;background-repeat: no-repeat;background-size: cover;display:none;" id="stnBG"></div>
+                     <iframe  class="w-full h-full  object-cover"  src="https://www.youtube.com/embed/?list=PLVwwxTsiD3WUA6WihMn4pK1upDZvM2POl&index=1&autoplay=1&mute=1&controls=0" id="newsVideo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+               
+                    </div>                     
+                    
+                </div>
+  </body>
+</html>
